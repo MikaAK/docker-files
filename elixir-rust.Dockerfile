@@ -1,11 +1,6 @@
 FROM elixir:1.7-alpine
 
-ENV \
-    PATH=$HOME/.cargo/bin:$PATH \
-    PORT=4000 \
-    REPLACE_OS_VARS=true \
-    MIX_ENV=prod \
-    RUSTUP_TOOLCHAIN=stable-x86_64-unknown-linux-musl
+ENV PATH=$HOME/.cargo/bin:$PATH
 
 RUN mix local.hex --force && \
     mix local.rebar --force
