@@ -1,0 +1,46 @@
+name: Deploy
+
+on: [push]
+  # push:
+  #   branches:
+  #     - deploy
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: elixir.Dockerfile
+          platforms: linux/amd64,linux/arm64
+          tags: mikaak/elixir:1.13-alpine
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: alpine-release.Dockerfile
+          platforms: linux/amd64,linux/arm64
+          tags: mikaak/alpine-release:latest
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: node-elixir.Dockerfile
+          platforms: linux/amd64,linux/arm64
+          tags: mikaak/elixir-node:1.13-alpine
