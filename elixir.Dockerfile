@@ -12,6 +12,6 @@ RUN apk update && \
     apk upgrade && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
-    apk --update --no-cache add libgcc libc-dev make gcc bash udev openssl libstdc++ ncurses-libs git && \
+    apk --update --no-cache add libgcc libc-dev make gcc bash udev openssl libstdc++ ncurses-libs git tar curl && \
     rm -rf /var/cache/apk/*
 
