@@ -81,23 +81,8 @@ RUN set -xe \
   && find /usr/local/src/elixir/ -type f -not -regex "/usr/local/src/elixir/lib/[^\/]*/lib.*" -exec rm -rf {} + \
   && find /usr/local/src/elixir/ -type d -depth -empty -delete
 
-# Terraform
-RUN wget -O- https://apt.releases.hashicorp.com/gpg \
-    | gpg --dearmor \
-    | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg \
-    && gpg --no-default-keyring \
-           --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
-           --fingerprint \
-    && echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com bullseye main" \
-    | tee /etc/apt/sources.list.d/hashicorp.list
-
 RUN apt-get update -qq \
  && apt-get upgrade -y
 
-RUN apt-get install -y python3-pip jq ansible terraform \
- && rm -rf /var/lib/apt/lists/*
-
-RUN pip install awscli
-RUN curl -sL https://sentry.io/get-cli/ | bash
-
-CMD ["tail", "-f", "/dev/null"]
+RUN apt-get install -y python3-pip jq \
+  && rm -rf /var/lib/apt/lists/*
