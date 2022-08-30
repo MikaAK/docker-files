@@ -28,5 +28,4 @@ RUN apt-get install -y ansible terraform \
 RUN pip install awscli
 RUN curl -sL https://sentry.io/get-cli/ | bash
 
-
 CMD ["tail", "-f", "/dev/null"]
