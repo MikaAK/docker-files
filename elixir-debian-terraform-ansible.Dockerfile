@@ -1,4 +1,4 @@
-FROM mikaak/elixir-node:1.13-otp-25-debian
+FROM mikaak/elixir-node:1.17-otp-27-debian
 
 ENV OTP_VERSION="25.0" \
     REBAR_VERSION="2.6.4" \

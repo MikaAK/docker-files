@@ -1,10 +1,10 @@
 FROM buildpack-deps:bullseye
 
-ENV OTP_VERSION="25.0.4" \
+ENV OTP_VERSION="27.1.2" \
     MIX_ENV="PROD" \
     RUNTIME_DEPS="libodbc1 libsctp1 libwxgtk3.0" \
     BUILD_DEPS="unixodbc-dev libsctp-dev" \
-    OTP_DOWNLOAD_SHA256="05878cb51a64b33c86836b12a21903075c300409b609ad5e941ddb0feb8c2120"
+    OTP_DOWNLOAD_SHA256="365208d47f9590f27c0814ccd7ee7aec0e1b6ba2fe9d875e356edb5d9b054541"
 
 LABEL org.opencontainers.image.version=$OTP_VERSION
 
@@ -52,8 +52,8 @@ RUN set -xe \
   && install -v ./rebar /usr/local/bin/ \
   && rm -rf /usr/src/rebar-src
 
-ENV REBAR3_VERSION="3.19.0" \
-    REBAR3_DOWNLOAD_SHA256="ff9ef42c737480477ebdf0dd9d95ece534a14c96f05edafbf32e9af973280bc3"
+ENV REBAR3_VERSION="3.24.0" \
+    REBAR3_DOWNLOAD_SHA256="391b0eaa2825bb427fef1e55a0d166493059175f57a33b00346b84a20398216c"
 
 RUN set -xe \
   && REBAR3_DOWNLOAD_URL="https://github.com/erlang/rebar3/archive/${REBAR3_VERSION}.tar.gz" \
@@ -67,8 +67,8 @@ RUN set -xe \
   && install -v ./rebar3 /usr/local/bin/ \
   && rm -rf /usr/src/rebar3-src
 
-ENV ELIXIR_DOWNLOAD_SHA256="95daf2dd3052e6ca7d4d849457eaaba09de52d65ca38d6933c65bc1cdf6b8579" \
-    ELIXIR_VERSION="v1.13.4" \
+ENV ELIXIR_DOWNLOAD_SHA256="6116c14d5e61ec301240cebeacbf9e97125a4d45cd9071e65e0b958d5ebf3890" \
+    ELIXIR_VERSION="v1.17.3" \
     LANG="C.UTF-8"
 
 RUN set -xe \
