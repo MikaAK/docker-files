@@ -10,13 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -25,6 +25,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          pull: true
           file: elixir-otp-25.Dockerfile
           platforms: linux/amd64
           tags: mikaak/elixir:1.13-otp-25-alpine
@@ -33,6 +34,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          pull: true
           file: elixir.Dockerfile
           platforms: linux/amd64,linux/arm64
           tags: mikaak/elixir:1.13-alpine
@@ -41,6 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          pull: true
           file: alpine-release.Dockerfile
           platforms: linux/amd64,linux/arm64
           tags: mikaak/alpine-release:latest
@@ -49,6 +52,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          pull: true
           file: node-elixir-otp-25.Dockerfile
           platforms: linux/amd64
           tags: mikaak/elixir-node:1.13-otp-25-alpine
@@ -57,6 +61,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          pull: true
           file: node-elixir.Dockerfile
           platforms: linux/amd64
           tags: mikaak/elixir-node:1.13-alpine
