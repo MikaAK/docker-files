@@ -21,14 +21,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push elixir:1.13-otp25-debian
+      - name: Build and push elixir:1.13-otp-25-debian
         uses: docker/build-push-action@v2
         with:
           push: true
           pull: true
           file: elixir-debian-otp-25.Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: mikaak/elixir:1.13-otp25-debian
+          tags: mikaak/elixir:1.13-otp-25-debian
 
       - name: Build and push elixir-node:1.13-otp-25-alpine
         uses: docker/build-push-action@v2
@@ -37,13 +37,13 @@ jobs:
           pull: true
           file: node-elixir-debian-otp-25.Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: mikaak/elixir-node:1.13-otp25-debian
+          tags: mikaak/elixir-node:1.13-otp-25-debian
 
-      - name: Build and push elixir-terraform-ansible-builder:1.13-otp25-debian
+      - name: Build and push elixir-terraform-ansible-builder:1.13-otp-25-debian
         uses: docker/build-push-action@v2
         with:
           push: true
           pull: true
           file: elixir-debian-terraform-ansible-otp-25.Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: mikaak/elixir-terraform-ansible-builder:1.13-otp25-debian
+          tags: mikaak/elixir-terraform-ansible-builder:1.13-otp-25-debian
