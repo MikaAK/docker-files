@@ -61,26 +61,26 @@ jobs:
           platforms: linux/amd64
           tags: mikaak/elixir-node:1.13-alpine
 
-      - name: Build and push elixir:1.13-otp25-debian
+      - name: Build and push elixir:1.17-otp27-debian
         uses: docker/build-push-action@v2
         with:
           push: true
           file: elixir-debian.Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: mikaak/elixir:1.13-otp25-debian
+          tags: mikaak/elixir:1.17-otp27-debian
 
-      - name: Build and push elixir-node:1.13-otp-25-alpine
+      - name: Build and push elixir-node:1.17-otp-27-debian
         uses: docker/build-push-action@v2
         with:
           push: true
-          file: node-elixir-debian-otp-25.Dockerfile
+          file: node-elixir-debian.Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: mikaak/elixir-node:1.13-otp25-debian
+          tags: mikaak/elixir-node:1.17-otp27-debian
 
-      - name: Build and push elixir-terraform-ansible-builder:1.13-otp25-debian
+      - name: Build and push elixir-terraform-ansible-builder:1.17-otp27-debian
         uses: docker/build-push-action@v2
         with:
           push: true
           file: elixir-debian-terraform-ansible.Dockerfile
           platforms: linux/amd64,linux/arm64
-          tags: mikaak/elixir-terraform-ansible-builder:1.13-otp25-debian
+          tags: mikaak/elixir-terraform-ansible-builder:1.17-otp27-debian
