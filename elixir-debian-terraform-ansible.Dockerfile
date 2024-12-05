@@ -17,7 +17,7 @@ RUN TER_VER=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/l
     && mv terraform /usr/local/bin/
 
 # AWS CLI & Extras
-RUN pip install awscli
+RUN pip install awscli boto3
 RUN curl -sL https://sentry.io/get-cli/ | bash
 
 CMD ["tail", "-f", "/dev/null"]
