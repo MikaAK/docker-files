@@ -22,7 +22,7 @@ RUN set -xe \
   && ( cd $ERL_TOP \
     && ./otp_build autoconf \
     && GNU_ARCH="$(dpkg-architecture --query DEB_HOST_GNU_TYPE)" \
-    && ./configure --build="$GNU_ARCH" \
+    && ./configure --build="$GNU_ARCH" --disable-jit \
     && make -j$(nproc) \
     && make -j$(nproc) docs DOC_TARGETS=chunks \
     && make install install-docs DOC_TARGETS=chunks) \
