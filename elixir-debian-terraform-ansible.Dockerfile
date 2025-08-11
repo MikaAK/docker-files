@@ -1,4 +1,4 @@
-FROM mikaak/elixir-node:1.17-otp-27-debian
+FROM mikaak/elixir-node:1.18-otp-28-debian
 
 ENV OTP_VERSION="25.0" \
     REBAR_VERSION="2.6.4" \
@@ -17,6 +17,7 @@ RUN TER_VER=`curl -s https://api.github.com/repos/hashicorp/terraform/releases/l
     && mv terraform /usr/local/bin/
 
 # AWS CLI & Extras
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 RUN pip install awscli boto3
 RUN curl -sL https://sentry.io/get-cli/ | bash
 

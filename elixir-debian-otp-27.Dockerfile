@@ -1,16 +1,20 @@
-FROM buildpack-deps:trixie
+FROM buildpack-deps:bullseye
 
-ENV OTP_VERSION="28.0.2" \
+ENV OTP_VERSION="27.1.2" \
     MIX_ENV="PROD" \
-    RUNTIME_DEPS="libodbc2 libsctp1 libwxgtk3.2 libwxgtk-webview3.2-dev" \
+    RUNTIME_DEPS="libodbc1 libsctp1 libwxgtk3.0" \
     BUILD_DEPS="unixodbc-dev libsctp-dev" \
-    OTP_DOWNLOAD_SHA256="ae202078906c10d1c107ba8d580e22062432fc602fb1483a2972d886bd426f5e"
+    OTP_DOWNLOAD_SHA256="365208d47f9590f27c0814ccd7ee7aec0e1b6ba2fe9d875e356edb5d9b054541"
 
 LABEL org.opencontainers.image.version=$OTP_VERSION
 
 RUN set -xe \
   && apt-get update \
   && apt-get install -y --no-install-recommends $RUNTIME_DEPS $BUILD_DEPS \
+  && echo "deb http://ftp.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list \
+  && echo "deb-src http://ftp.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list \
+  && apt-get update \
+  && apt-get install -y -t bullseye-backports libwxgtk-webview3.0-gtk3-dev \
   && apt-get install -y python3-pip jq \
   && OTP_DOWNLOAD_URL="https://github.com/erlang/otp/archive/OTP-${OTP_VERSION}.tar.gz" \
   && curl -fSL -o otp-src.tar.gz "$OTP_DOWNLOAD_URL" \
@@ -22,7 +26,7 @@ RUN set -xe \
   && ( cd $ERL_TOP \
     && ./otp_build autoconf \
     && GNU_ARCH="$(dpkg-architecture --query DEB_HOST_GNU_TYPE)" \
-    && ./configure --build="$GNU_ARCH" \
+    && ./configure --build="$GNU_ARCH" --disable-jit \
     && make -j$(nproc) \
     && make -j$(nproc) docs DOC_TARGETS=chunks \
     && make install install-docs DOC_TARGETS=chunks) \
@@ -48,8 +52,8 @@ RUN set -xe \
   && install -v ./rebar /usr/local/bin/ \
   && rm -rf /usr/src/rebar-src
 
-ENV REBAR3_VERSION="3.25.0" \
-    REBAR3_DOWNLOAD_SHA256="7d3f42dc0e126e18fb73e4366129f11dd37bad14d404f461e0a3129ce8903440"
+ENV REBAR3_VERSION="3.24.0" \
+    REBAR3_DOWNLOAD_SHA256="391b0eaa2825bb427fef1e55a0d166493059175f57a33b00346b84a20398216c"
 
 RUN set -xe \
   && REBAR3_DOWNLOAD_URL="https://github.com/erlang/rebar3/archive/${REBAR3_VERSION}.tar.gz" \
@@ -63,8 +67,8 @@ RUN set -xe \
   && install -v ./rebar3 /usr/local/bin/ \
   && rm -rf /usr/src/rebar3-src
 
-ENV ELIXIR_VERSION="v1.18.4" \
-    ELIXIR_DOWNLOAD_SHA256="8e136c0a92160cdad8daa74560e0e9c6810486bd232fbce1709d40fcc426b5e0" \
+ENV ELIXIR_DOWNLOAD_SHA256="6116c14d5e61ec301240cebeacbf9e97125a4d45cd9071e65e0b958d5ebf3890" \
+    ELIXIR_VERSION="v1.17.3" \
     LANG="C.UTF-8"
 
 RUN set -xe \

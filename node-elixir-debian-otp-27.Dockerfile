@@ -1,4 +1,4 @@
-FROM mikaak/elixir:1.13-otp-25-debian
+FROM mikaak/elixir:1.17-otp-27-debian
 
 WORKDIR /home
 
