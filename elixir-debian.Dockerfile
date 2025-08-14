@@ -2,8 +2,8 @@ FROM buildpack-deps:trixie
 
 ENV OTP_VERSION="28.0.2" \
     MIX_ENV="PROD" \
-    RUNTIME_DEPS="libodbc2 libsctp1 libwxgtk3.2 libwxgtk-webview3.2-dev" \
-    BUILD_DEPS="unixodbc-dev libsctp-dev" \
+    RUNTIME_DEPS="libodbc2 libsctp1 libwxgtk3.2 libwxgtk-webview3.2-dev libssl3" \
+    BUILD_DEPS="unixodbc-dev libsctp-dev libssl-dev" \
     OTP_DOWNLOAD_SHA256="ae202078906c10d1c107ba8d580e22062432fc602fb1483a2972d886bd426f5e"
 
 LABEL org.opencontainers.image.version=$OTP_VERSION
@@ -22,7 +22,7 @@ RUN set -xe \
   && ( cd $ERL_TOP \
     && ./otp_build autoconf \
     && GNU_ARCH="$(dpkg-architecture --query DEB_HOST_GNU_TYPE)" \
-    && ./configure --build="$GNU_ARCH" --disable-jit \
+    && ./configure --build="$GNU_ARCH" --disable-jit --with-ssl=/usr \
     && make -j$(nproc) \
     && make -j$(nproc) docs DOC_TARGETS=chunks \
     && make install install-docs DOC_TARGETS=chunks) \
